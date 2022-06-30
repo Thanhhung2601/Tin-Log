@@ -1,0 +1,26 @@
+.card {
+    display: flex;
+    position: relative;
+    padding: 10px 6px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    & img {
+        width: 100%;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+    &:hover {
+        transform: scale(1.1);
+    }
+    .card-username {
+        position: absolute;
+        overflow: hidden;
+        bottom: 12px;
+        left: 12px;
+        color: white;
+        white-space: nowrap;
+        max-width: 90px;
+        text-overflow: ellipsis;
+    }
+}

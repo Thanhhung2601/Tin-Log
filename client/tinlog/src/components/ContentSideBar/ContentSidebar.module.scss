@@ -1,0 +1,21 @@
+.list-match {
+    padding: 10px 15px;
+    .list-match-titleTop {
+        position: relative;
+        display: flex;
+        column-gap: 18px;
+        & span {
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            width: 30px;
+            transition: 0.3s ease;
+            background-color: #ff4458;
+        }
+    }
+}
