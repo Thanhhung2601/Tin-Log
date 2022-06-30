@@ -1,4 +1,5 @@
 import bcrypt from 'bcryptjs'
+import mongoose from 'mongoose'
 import User from '../model/user.js'
 
 export const signUp = async (req, res) => {
@@ -42,4 +43,19 @@ export const signIn = async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: 'Something went wrong ' })
     }
+}
+
+export const updateProfile = async (req, res) => {
+    const userProfile = req.body
+    if (!mongoose.Types.ObjectId.isValid(userProfile._id)) {
+        return res.status(404).send('No user with id')
+    }
+    const updateUser = await User.findByIdAndUpdate(
+        userProfile._id,
+        userProfile,
+        {
+            new: true,
+        }
+    )
+    res.json(updateUser)
 }

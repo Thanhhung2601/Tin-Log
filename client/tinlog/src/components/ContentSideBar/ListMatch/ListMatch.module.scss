@@ -1,0 +1,9 @@
+.listMatch {
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 30px;
+    margin: -8px -6px;
+    .listMatch-item {
+        flex-basis: 33.3333%;
+    }
+}

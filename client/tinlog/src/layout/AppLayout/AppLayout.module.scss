@@ -1,0 +1,11 @@
+.app-layout {
+    display: flex;
+    height: 100vh;
+    .app-sidebar {
+        width: 375px;
+    }
+    .app-content {
+        background-color: #f0f2f4;
+        flex: 1;
+    }
+}

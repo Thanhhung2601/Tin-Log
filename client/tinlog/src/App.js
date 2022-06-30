@@ -11,9 +11,10 @@ function App() {
         <div className="App">
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<Home />} />
+                    <Route path="/" index element={<Home />} />
                     <Route path="/login-register" element={<Connect />} />
                     <Route path="/app" element={<Tinlog />} />
+                    <Route path="/app/profile" element={<>hehehehhe</>} />
                 </Routes>
             </BrowserRouter>
             <ToastContainer
