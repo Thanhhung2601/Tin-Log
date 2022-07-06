@@ -5,6 +5,7 @@ import Connect from './pages/Connect/Connect'
 import Tinlog from './pages/tinlog/Tinlog'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import EditProfile from './pages/tinlog/EditProfile/EditProfile'
 
 function App() {
     return (
@@ -14,7 +15,7 @@ function App() {
                     <Route path="/" index element={<Home />} />
                     <Route path="/login-register" element={<Connect />} />
                     <Route path="/app" element={<Tinlog />} />
-                    <Route path="/app/profile" element={<>hehehehhe</>} />
+                    <Route path="/app/profile" element={<EditProfile />} />
                 </Routes>
             </BrowserRouter>
             <ToastContainer

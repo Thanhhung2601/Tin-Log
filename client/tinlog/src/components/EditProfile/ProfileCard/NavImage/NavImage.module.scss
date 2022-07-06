@@ -1,0 +1,18 @@
+.btn-left,
+.btn-right {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 3rem;
+    color: white;
+    &.hidden {
+        display: none;
+    }
+}
+.btn-right {
+    right: 12px;
+}
+.btn-left {
+    left: 12px;
+}

@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { getUser, register } from '../../api'
+import { getUser, register, updateProfile } from '../../api'
 import { toast } from 'react-toastify'
 
 const initialState = {
@@ -39,6 +39,15 @@ const userSlice = createSlice({
         builder.addCase(registerUser.rejected, (state, action) => {
             toast.error(`${action.error.message}`)
         })
+        builder.addCase(updateProfileUser.fulfilled, (state, action) => {
+            state.user = action.payload.data
+            toast.success('You have successfully update ❤️', {
+                autoClose: 3000,
+            })
+        })
+        builder.addCase(updateProfileUser.rejected, (state, action) => {
+            toast.error(`${action.error.message}`)
+        })
     },
 })
 
@@ -65,6 +74,23 @@ export const registerUser = createAsyncThunk(
     async (userData) => {
         try {
             const res = await register(userData)
+            return res
+        } catch (error) {
+            console.log(error)
+            const customError = {
+                name: 'Custom axios error',
+                message: error.response.data.message,
+            }
+            throw customError
+        }
+    }
+)
+
+export const updateProfileUser = createAsyncThunk(
+    'userSlice/updateProfile',
+    async (userInfo) => {
+        try {
+            const res = await updateProfile(userInfo)
             return res
         } catch (error) {
             console.log(error)

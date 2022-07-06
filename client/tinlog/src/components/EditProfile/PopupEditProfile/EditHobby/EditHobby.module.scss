@@ -1,0 +1,21 @@
+.EditHobby {
+    position: fixed;
+    width: 500px;
+    background-color: white;
+    top: 50%;
+    left: 50%;
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    transform: translate(-50%, -50%);
+    padding: 12px 22px;
+    .title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        .done {
+            cursor: pointer;
+            color: #d6002f;
+        }
+    }
+}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styles from './Connect.module.scss'
 import classNames from 'classnames/bind'
 import { Button, TextField } from '@mui/material'
@@ -38,7 +38,11 @@ const Connect = () => {
         await dispatch(registerUser(valueRegister))
         setIsLogin(true)
     }
-
+    useEffect(() => {
+        if (userInfo.user) {
+            navigate('/app')
+        }
+    }, [])
     return (
         <div
             className={cx('login-register')}
