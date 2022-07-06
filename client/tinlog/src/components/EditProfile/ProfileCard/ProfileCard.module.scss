@@ -1,0 +1,55 @@
+.profile-card-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    .profile-card-inner {
+        overflow: auto;
+        height: 666px;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+        width: 375px;
+        background-color: white;
+        border-radius: 8px;
+        &::-webkit-scrollbar {
+            display: none;
+        }
+        .profile-inner-img {
+            position: relative;
+            & > img {
+                width: 100%;
+                height: 468px;
+                border-top-left-radius: 8px;
+                border-top-right-radius: 8px;
+                object-fit: cover;
+            }
+        }
+    }
+    .profile-inner-desc {
+        .profile-name-age,
+        .profile-bio,
+        .profile-hobby {
+            padding: 14px 16px;
+            border-bottom: 3px solid #f0f2f4;
+        }
+
+        .profile-name-age {
+            & > h2 {
+                font-size: 2.8rem;
+            }
+            & span {
+                font-size: 2.6rem;
+                font-weight: 400;
+                padding-left: 4px;
+            }
+        }
+        .profile-hobby {
+            & > h4 {
+                margin-bottom: 8px;
+            }
+            .list-hobby {
+                margin: 0 -6px;
+            }
+        }
+    }
+}

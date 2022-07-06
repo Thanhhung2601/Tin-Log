@@ -7,9 +7,10 @@ const userSchema = mongoose.Schema({
     userName: String,
     age: { type: String, default: '' },
     sex: { type: String, default: '' },
-    hobby: { type: [String], default: [] },
+    hobby: { type: [Object], default: [] },
     email: String,
     password: String,
+    bio: String,
 })
 
 export default mongoose.model('User', userSchema)

@@ -47,6 +47,7 @@ export const signIn = async (req, res) => {
 
 export const updateProfile = async (req, res) => {
     const userProfile = req.body
+    console.log(userProfile)
     if (!mongoose.Types.ObjectId.isValid(userProfile._id)) {
         return res.status(404).send('No user with id')
     }

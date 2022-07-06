@@ -1,0 +1,16 @@
+.progressImage {
+    display: flex;
+    column-gap: 4px;
+    position: absolute;
+    top: 4px;
+    left: 6px;
+    right: 6px;
+    .item {
+        background-color: #e6e6e6af;
+        height: 3px;
+        border-radius: 4px;
+        &.active {
+            background-color: white;
+        }
+    }
+}
