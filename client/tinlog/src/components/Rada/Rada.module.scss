@@ -1,0 +1,69 @@
+.pulse-box {
+    float: left;
+    width: 50%;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* pulse in SVG */
+svg.pulse-svg {
+    overflow: visible;
+}
+svg.pulse-svg .first-circle,
+svg.pulse-svg .third-circle,
+svg.pulse-svg .second-circle {
+    fill: #f00;
+    transform: scale(0.5);
+    transform-origin: center center;
+    animation: pulse-me 3s linear infinite;
+}
+svg.pulse-svg .second-circle {
+    animation-delay: 1s;
+}
+svg.pulse-svg .third-circle {
+    animation-delay: 2s;
+}
+
+/* pulse in CSS */
+.pulse-css {
+    position: relative;
+}
+.pulse-css:before,
+.pulse-css:after {
+    content: '';
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    background-color: tomato;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    transform: scale(0.5);
+    transform-origin: center center;
+    animation: pulse-me 3s linear infinite;
+}
+.pulse-css:after {
+    animation-delay: 2s;
+}
+
+@keyframes pulse-me {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.1;
+    }
+    70% {
+        opacity: 0.09;
+    }
+    100% {
+        transform: scale(5);
+        opacity: 0;
+    }
+}

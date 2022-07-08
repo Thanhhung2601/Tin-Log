@@ -2,25 +2,24 @@ import React, { useState } from 'react'
 import styles from './PopupEditProfile.module.scss'
 import classNames from 'classnames/bind'
 import { AiOutlineClose, AiTwotoneEdit } from 'react-icons/ai'
-import { Chip } from '@mui/material'
+import { Chip, Avatar } from '@mui/material'
 import HightLightImg from './HighLightImg/HightLightImg'
 import EditHobby from './EditHobby/EditHobby'
 import { Button } from '@mui/material'
 import { useRef } from 'react'
 import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { updateProfileUser } from '../../../redux/slices/userSlice'
+import Loading from '../../Loading/Loading'
 
 const cx = classNames.bind(styles)
 
 const PopupEditProfile = ({ user, setPopupEditProfile }) => {
     const [userInfo, setUserInfo] = useState(user)
     const [popupHobby, setPopupHobby] = useState(false)
-    const inputRef = useRef()
-
+    const ipRef = useRef()
+    const { loading } = useSelector((state) => state.userInfo)
     const dispatch = useDispatch()
-
-    console.log('updated hobby', userInfo)
 
     const handleChangeInput = (event) => {
         switch (event.target.id) {
@@ -43,11 +42,7 @@ const PopupEditProfile = ({ user, setPopupEditProfile }) => {
         }
     }
 
-    useEffect(() => {
-        console.log(inputRef.current)
-    }, [])
-
-    const getBase64 = (file) => {
+    const getBase = (file) => {
         return new Promise((resolve) => {
             let baseURL = ''
             let reader = new FileReader()
@@ -58,9 +53,9 @@ const PopupEditProfile = ({ user, setPopupEditProfile }) => {
             }
         })
     }
-    const handleFileInputChange = (e) => {
+    const handleFileIp = (e) => {
         const file = e.target.files[0]
-        getBase64(file)
+        getBase(file)
             .then((result) => {
                 setUserInfo({ ...userInfo, profileImage: result })
             })
@@ -70,7 +65,7 @@ const PopupEditProfile = ({ user, setPopupEditProfile }) => {
     }
 
     const handleAdd = () => {
-        inputRef.current.click()
+        ipRef.current.click()
     }
 
     const handleSave = () => {
@@ -100,19 +95,21 @@ const PopupEditProfile = ({ user, setPopupEditProfile }) => {
                                 <span>Ảnh hồ sơ</span>
                             </div>
                             <div className={cx('avatar')} onClick={handleAdd}>
-                                <img
-                                    src={userInfo.profileImage}
-                                    alt={userInfo.userName}
-                                />
+                                {userInfo.profileImage && (
+                                    <img
+                                        src={userInfo.profileImage}
+                                        alt={userInfo.userName}
+                                    />
+                                )}
                                 <div className={cx('icon')}>
                                     <AiTwotoneEdit />
                                 </div>
                             </div>
                             <div className={cx('input-file')}>
                                 <input
-                                    ref={inputRef}
+                                    ref={ipRef}
                                     type="file"
-                                    onChange={handleFileInputChange}
+                                    onChange={handleFileIp}
                                 />
                             </div>
                         </div>
@@ -163,20 +160,39 @@ const PopupEditProfile = ({ user, setPopupEditProfile }) => {
                                 className={cx('hobby')}
                                 onClick={() => setPopupHobby(true)}
                             >
-                                {userInfo.hobby.map((hb) => {
-                                    return (
-                                        <Chip
-                                            key={hb.id}
-                                            label={hb.text}
-                                            variant="outlined"
-                                            sx={{
-                                                fontSize: '1.2rem',
-                                                margin: '4px 6px',
-                                                cursor: 'pointer',
-                                            }}
-                                        />
-                                    )
-                                })}
+                                {userInfo.hobby.length > 0 ? (
+                                    userInfo.hobby.map((hb) => {
+                                        return (
+                                            <Chip
+                                                key={hb.id}
+                                                label={hb.text}
+                                                variant="outlined"
+                                                sx={{
+                                                    fontSize: '1.2rem',
+                                                    margin: '4px 6px',
+                                                    cursor: 'pointer',
+                                                }}
+                                            />
+                                        )
+                                    })
+                                ) : (
+                                    <Button
+                                        variant="contained"
+                                        size="medium"
+                                        sx={{
+                                            fontSize: 14,
+                                            backgroundColor: '#FF4458',
+                                            borderRadius: '16px !important',
+                                            textTransform: 'capitalize',
+                                            ':hover': {
+                                                bgcolor: '#FE4A4F',
+                                                color: 'white',
+                                            },
+                                        }}
+                                    >
+                                        Thêm sở thích
+                                    </Button>
+                                )}
                             </div>
                         </div>
                         <div className={cx('fl-ip', 'mg-pd', 'edit-bio')}>
@@ -193,9 +209,13 @@ const PopupEditProfile = ({ user, setPopupEditProfile }) => {
                         </div>
                     </div>
                     <div className={cx('edit-hightlightImage')}>
-                        <HightLightImg user={user} setUserInfo={setUserInfo} />
-                        <div className={cx('btn-save')} onClick={handleSave}>
+                        <HightLightImg
+                            user={userInfo}
+                            setUserInfo={setUserInfo}
+                        />
+                        <div className={cx('btn-save')}>
                             <Button
+                                onClick={handleSave}
                                 variant="contained"
                                 size="large"
                                 sx={{
@@ -221,6 +241,7 @@ const PopupEditProfile = ({ user, setPopupEditProfile }) => {
                     setPopupHobby={setPopupHobby}
                 />
             )}
+            {loading && <Loading />}
         </div>
     )
 }

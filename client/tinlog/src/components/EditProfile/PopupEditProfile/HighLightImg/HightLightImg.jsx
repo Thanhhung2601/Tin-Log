@@ -12,17 +12,13 @@ const HightLightImg = ({ user, setUserInfo }) => {
 
     const inputRef = useRef()
 
-    console.log(countImg)
-
     useEffect(() => {
         setCountImg(hightLightImg.length)
     }, [])
 
     useEffect(() => {
         if (hightLightImg.length === 6) return
-        console.log('effect2 run')
         const fill = new Array(6 - hightLightImg.length).fill(0)
-        console.log('length', hightLightImg.length)
         setHightLightImg(hightLightImg.concat(fill))
         // eslint-disable-next-line
     }, [hightLightImg])

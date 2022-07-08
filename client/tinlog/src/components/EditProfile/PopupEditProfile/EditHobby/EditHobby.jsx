@@ -9,10 +9,8 @@ const cx = classNames.bind(styles)
 
 const EditHobby = ({ user, setUserInfo, setPopupHobby }) => {
     const [listHobby, setListHobby] = useState(hobby)
-    console.log(user)
 
     useEffect(() => {
-        console.log('run didmount')
         const newListHobby = listHobby.map((hobby) => {
             return { ...hobby, isChoice: false }
         })

@@ -38,11 +38,10 @@
             flex-basis: 50%;
             .edit-avatar {
                 display: flex;
-
                 column-gap: 30px;
                 border-bottom: 1px solid rgba(22, 24, 35, 0.12);
                 .text {
-                    width: 100px;
+                    width: 130px;
                 }
                 .avatar {
                     position: relative;
@@ -75,9 +74,10 @@
                 column-gap: 30px;
                 border-bottom: 1px solid rgba(22, 24, 35, 0.12);
                 .text {
-                    width: 100px;
+                    width: 130px;
                 }
                 .hobby {
+                    max-width: 330px;
                     cursor: pointer;
                 }
                 .input {
@@ -113,6 +113,7 @@
                 text-align: right;
                 margin-top: 12px;
                 margin-right: 12px;
+                padding-bottom: 12px;
             }
         }
     }

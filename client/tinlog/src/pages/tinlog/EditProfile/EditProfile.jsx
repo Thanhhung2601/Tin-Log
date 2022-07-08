@@ -21,15 +21,12 @@ const EditProfile = () => {
 
     const { user } = useSelector((state) => state.userInfo)
 
-    console.log('editProfile Run', user)
-    console.log(popupEditProfile)
-
     return (
         <AppLayout>
             <div className={cxAppLayout('app-sidebar')}>
                 <div className={cx('profile')}>
                     <div className="profile-avatar">
-                        {user.profileImage ? (
+                        {user?.profileImage ? (
                             <Avatar
                                 alt={user.userName}
                                 src={user.profileImage}

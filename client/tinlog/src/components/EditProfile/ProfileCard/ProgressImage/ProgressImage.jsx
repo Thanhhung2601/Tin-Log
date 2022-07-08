@@ -13,7 +13,7 @@ const ProgressImage = ({ hightlightImages, currentImage }) => {
                         style={{ width: `${100 / hightlightImages.length}%` }}
                         key={index}
                         className={cx('item', {
-                            active: currentImage == index,
+                            active: currentImage === index,
                         })}
                     ></div>
                 )

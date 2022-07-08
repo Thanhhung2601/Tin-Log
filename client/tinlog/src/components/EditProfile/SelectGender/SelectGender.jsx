@@ -27,7 +27,6 @@ const SelectGender = () => {
     const handleChange = (event) => {
         setSelectedValue(event.target.value)
     }
-    console.log(selectedValue)
     return (
         <div className={cx('selectGender')}>
             <FormControl>

@@ -4,6 +4,7 @@ import { toast } from 'react-toastify'
 
 const initialState = {
     user: null,
+    loading: false,
 }
 
 const userSlice = createSlice({
@@ -12,6 +13,7 @@ const userSlice = createSlice({
     reducers: {
         logOut(state, action) {
             state.user = null
+            action.payload.navigate('/')
         },
     },
     extraReducers: (builder) => {
@@ -20,13 +22,16 @@ const userSlice = createSlice({
             state.user = action.payload.userData
             action.payload.navigate('/app')
             toast.success('Welcome to Tin-Log ❤️', {
-                autoClose: 5000,
+                autoClose: 2500,
                 position: 'top-right',
                 hideProgressBar: true,
             })
         })
         builder.addCase(fetchUser.rejected, (state, action) => {
-            toast.error(`${action.error.message}`)
+            toast.error(`${action.error.message}`, {
+                autoClose: 3000,
+                position: 'bottom-right',
+            })
         })
         builder.addCase(registerUser.fulfilled, (state, action) => {
             toast.success(
@@ -37,16 +42,25 @@ const userSlice = createSlice({
             )
         })
         builder.addCase(registerUser.rejected, (state, action) => {
-            toast.error(`${action.error.message}`)
+            toast.error(`${action.error.message}`, {
+                autoClose: 3000,
+                position: 'bottom-right',
+            })
+        })
+        builder.addCase(updateProfileUser.pending, (state, action) => {
+            state.loading = true
         })
         builder.addCase(updateProfileUser.fulfilled, (state, action) => {
             state.user = action.payload.data
-            toast.success('You have successfully update ❤️', {
-                autoClose: 3000,
+            state.loading = false
+            toast.success('Cập nhập thành công .', {
+                autoClose: 2500,
+                hideProgressBar: true,
             })
         })
         builder.addCase(updateProfileUser.rejected, (state, action) => {
             toast.error(`${action.error.message}`)
+            state.loading = false
         })
     },
 })

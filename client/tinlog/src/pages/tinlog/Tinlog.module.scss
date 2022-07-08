@@ -23,3 +23,22 @@
         }
     }
 }
+.content-sb {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: calc(100vh - 72px);
+    .logout {
+        text-align: center;
+        padding: 12px 0;
+        border-top: 1px solid #d9d9d9;
+        cursor: pointer;
+    }
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 91vh;
+}

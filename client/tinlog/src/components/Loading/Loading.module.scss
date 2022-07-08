@@ -1,0 +1,98 @@
+:root {
+    --size: 95px;
+    --clr-bg: #272324;
+    --clr1: #bbbb88;
+    --clr2: #ccc68d;
+    --clr3: #eedd99;
+    --clr4: #eec290;
+    --clr5: #eeaa88;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+.container {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    .wrapper {
+        justify-content: center;
+        position: absolute;
+        top: 35%;
+        background-color: white;
+        padding: 80px;
+        border-radius: 50%;
+        .text {
+            position: absolute;
+            font-family: 'Gabriola';
+            left: 50%;
+            transform: translateX(-50%);
+            letter-spacing: 4px;
+            margin-top: 8px;
+            opacity: 0.5;
+        }
+    }
+}
+
+@media (min-width: 600px) {
+    .container {
+        grid-template-rows: repeat(2, auto);
+        grid-template-columns: repeat(3, auto);
+    }
+}
+
+.spinner:nth-child(1) {
+    --animation-duration: 1000ms;
+
+    width: var(--size);
+    height: var(--size);
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    .spinner-item {
+        width: calc(var(--size) / 12);
+        height: 80%;
+        background: var(--clr-spinner);
+        animation: spinner1 var(--animation-duration) ease-in-out infinite;
+
+        @keyframes spinner1 {
+            50% {
+                transform: scaleY(0.25);
+            }
+        }
+    }
+
+    .spinner-item:nth-child(1) {
+        --clr-spinner: #03c9d7;
+        animation-delay: calc(var(--animation-duration) / 10 * -3);
+    }
+
+    .spinner-item:nth-child(2) {
+        --clr-spinner: #ffff1a;
+        animation-delay: calc(var(--animation-duration) / 10 * -1);
+    }
+
+    .spinner-item:nth-child(3) {
+        --clr-spinner: #03c9d7;
+        animation-delay: calc(var(--animation-duration) / 10 * -2);
+    }
+
+    .spinner-item:nth-child(4) {
+        --clr-spinner: #ff3333;
+        animation-delay: calc(var(--animation-duration) / 10 * -1);
+    }
+
+    .spinner-item:nth-child(5) {
+        --clr-spinner: #03c9d7;
+        animation-delay: calc(var(--animation-duration) / 10 * -3);
+    }
+}

@@ -1,5 +1,12 @@
 .list-match {
     padding: 10px 15px;
+    flex: 1;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
     .list-match-titleTop {
         position: relative;
         display: flex;

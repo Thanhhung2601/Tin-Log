@@ -10,7 +10,6 @@ const SelectRangeSlider = () => {
     const handleChange = (event, newValue) => {
         setValue(newValue)
     }
-    console.log(value)
 
     return (
         <div className={cx('SelectRangeSlider')}>

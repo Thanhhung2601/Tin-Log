@@ -1,0 +1,61 @@
+.card-swipe-wrapper {
+    height: 100%;
+}
+.swipe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    cursor: pointer;
+    .card {
+        height: 100%;
+        & img {
+            border-radius: 8px;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+    .infomation-user {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        .name-age {
+            color: #ffffff;
+            span {
+                font-size: 2.5rem;
+                margin-left: 4px;
+                font-weight: 400;
+            }
+        }
+        .hobby {
+            margin: 0 -6px;
+        }
+        .bio {
+            margin-top: 8px;
+            font-size: 1.9rem;
+            margin-bottom: 26px;
+            color: white;
+        }
+        & .pd {
+            padding: 0 22px;
+        }
+        .space {
+            height: 90px;
+            background-color: #000000;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+        .overlay {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 90px;
+            height: 40px;
+            background-image: linear-gradient(to top, #000000, #fff0);
+        }
+    }
+}

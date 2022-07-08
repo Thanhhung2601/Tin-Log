@@ -4,6 +4,9 @@ import classNames from 'classnames/bind'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import audio from '../../audio/MSTrim.mp3'
+
+const cx = classNames.bind(styles)
 
 const Home = () => {
     const navigate = useNavigate()
@@ -17,7 +20,11 @@ const Home = () => {
         }
     }, [])
 
-    return <div>Home</div>
+    return (
+        <div className={cx('hehe')}>
+            <h2>Home</h2>
+        </div>
+    )
 }
 
 export default Home

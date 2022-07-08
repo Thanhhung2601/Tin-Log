@@ -7,27 +7,12 @@
     height: 91vh;
     overflow: hidden;
     .cardContainer-inner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         flex: 1;
         width: 375px;
         position: relative;
-        .swipe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            height: 100%;
-            cursor: pointer;
-            .card {
-                height: 100%;
-                & img {
-                    border-radius: 8px;
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                }
-            }
-        }
     }
     .buttons {
         display: flex;
@@ -64,16 +49,24 @@
             }
         }
         .btn-cancel {
+            transition: 0.05s linear;
             & path {
                 fill: #fe4950;
             }
             border: 1px solid #fe4950;
+            &:active {
+                background-color: #fe4950;
+            }
         }
         .btn-like {
+            transition: 0.05s linear;
             & path {
                 fill: #2be8ca;
             }
             border: 1px solid #2be8ca;
+            &:active {
+                background-color: #2be8ca;
+            }
         }
     }
 }
