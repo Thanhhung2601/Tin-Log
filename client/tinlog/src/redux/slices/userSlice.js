@@ -5,6 +5,8 @@ import { toast } from 'react-toastify'
 const initialState = {
     user: null,
     loading: false,
+    selectGender: 'All',
+    ageRange: [18, 26],
 }
 
 const userSlice = createSlice({
@@ -14,6 +16,12 @@ const userSlice = createSlice({
         logOut(state, action) {
             state.user = null
             action.payload.navigate('/')
+        },
+        selectRangeAge(state, action) {
+            state.ageRange = action.payload
+        },
+        selectGender(state, action) {
+            state.selectGender = action.payload
         },
     },
     extraReducers: (builder) => {
@@ -51,7 +59,7 @@ const userSlice = createSlice({
             state.loading = true
         })
         builder.addCase(updateProfileUser.fulfilled, (state, action) => {
-            state.user = action.payload.data
+            state.user = action.payload.data[0]
             state.loading = false
             toast.success('Cập nhập thành công .', {
                 autoClose: 2500,

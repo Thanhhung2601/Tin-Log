@@ -11,11 +11,12 @@ import Box from '@mui/material/Box'
 import TabPanel from '../TabPanel/TabPanel'
 import './Custom.scss'
 import ListMatch from './ListMatch/ListMatch'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAllConversationAction } from '../../redux/slices/conversationSlice'
 
 const cx = classNames.bind(styles)
-const ContentSideBar = () => {
+const ContentSideBar = ({ user }) => {
     const [value, setValue] = useState(0)
-    const lineRef = useRef()
 
     const handleChange = (event, newValue) => {
         setValue(newValue)
@@ -24,7 +25,7 @@ const ContentSideBar = () => {
     return (
         <div className={cx('list-match')}>
             <div className={cx('list-match-titleTop')}>
-                <div>
+                <div className={cx('list-match-inner')}>
                     <Box>
                         <Tabs
                             value={value}
@@ -36,7 +37,7 @@ const ContentSideBar = () => {
                         </Tabs>
                     </Box>
                     <TabPanel value={value} index={0}>
-                        <ListMatch />
+                        <ListMatch user={user} />
                     </TabPanel>
                     <TabPanel value={value} index={1}>
                         Tin Nhắn

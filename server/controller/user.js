@@ -51,24 +51,48 @@ export const signIn = async (req, res) => {
 
 export const updateProfile = async (req, res) => {
     const userProfile = req.body
+    const result = []
     console.log(userProfile)
-    if (!mongoose.Types.ObjectId.isValid(userProfile._id)) {
+    if (!mongoose.Types.ObjectId.isValid(userProfile[0]._id)) {
         return res.status(404).send('No user with id')
     }
-    const updateUser = await User.findByIdAndUpdate(
-        userProfile._id,
-        userProfile,
+    const updateUserFirst = await User.findByIdAndUpdate(
+        userProfile[0]._id,
+        userProfile[0],
         {
             new: true,
         }
     )
-    res.json(updateUser)
+    result.push(updateUserFirst)
+
+    if (userProfile[1]?._id) {
+        const updateUserSecond = await User.findByIdAndUpdate(
+            userProfile[1]._id,
+            userProfile[1],
+            {
+                new: true,
+            }
+        )
+        result.push(updateUserSecond)
+    }
+
+    res.json(result)
 }
 
 export const getAllUser = async (req, res) => {
     try {
         const users = await User.find()
         res.status(200).json(users)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
+
+export const getUserById = async (req, res) => {
+    console.log(req.body)
+    try {
+        const user = await User.findById(req.body.userId)
+        res.status(200).json(user)
     } catch (error) {
         res.status(500).json(error)
     }

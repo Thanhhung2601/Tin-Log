@@ -4,6 +4,7 @@ const userSchema = mongoose.Schema({
     profileImage: { type: String, default: '' },
     highlightImage: { type: [String], default: [] },
     likes: { type: [String], default: [] },
+    following: { type: [String], default: [] },
     userName: String,
     age: { type: String, default: '' },
     sex: { type: String, default: '' },

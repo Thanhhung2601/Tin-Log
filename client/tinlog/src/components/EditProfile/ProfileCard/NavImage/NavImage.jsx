@@ -6,7 +6,6 @@ import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 const cx = classNames.bind(styles)
 
 const NavImage = ({ highlightImage, currentImage, setCurrentImage }) => {
-    console.log(currentImage)
     return (
         <>
             <div

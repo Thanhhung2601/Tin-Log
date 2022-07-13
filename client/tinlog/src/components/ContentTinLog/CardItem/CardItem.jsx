@@ -9,8 +9,16 @@ import NoHighLightImage from '../../../images/fleava.jpg'
 
 const cx = classNames.bind(styles)
 
-const CardItem = ({ character, index, swiped, outOfFrame, childRefs }) => {
+const CardItem = ({
+    character,
+    index,
+    swiped,
+    outOfFrame,
+    childRefs,
+    user,
+}) => {
     const [currentImage, setCurrentImage] = useState(0)
+
     return (
         <div className={cx('card-swipe-wrapper')} key={index}>
             <TinderCard
@@ -35,6 +43,9 @@ const CardItem = ({ character, index, swiped, outOfFrame, childRefs }) => {
                     </h1>
                     <div className={cx('hobby', 'pd')}>
                         {character.hobby.map((item) => {
+                            const check = user.hobby.some(
+                                (it) => it.id === item.id
+                            )
                             return (
                                 <Chip
                                     key={item.id}
@@ -42,7 +53,9 @@ const CardItem = ({ character, index, swiped, outOfFrame, childRefs }) => {
                                     sx={{
                                         fontSize: '1.2rem',
                                         margin: '4px 6px',
-                                        backgroundColor: '#0000004d',
+                                        background: check
+                                            ? 'linear-gradient(90deg, rgb(250, 111, 104), rgb(253, 38, 122))'
+                                            : '#0000004d',
                                         color: 'white',
                                         backdropFilter: 'blur(4px)',
                                     }}

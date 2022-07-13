@@ -9,26 +9,53 @@ import { Avatar } from '@mui/material'
 import ContentSideBar from '../../components/ContentSideBar/ContentSideBar'
 import CardUser from '../../components/ContentTinLog/CardUser'
 import { actions } from '../../redux/slices/userSlice'
+import { actions as actionCommunity } from '../../redux/slices/communitySilce'
 import { useEffect } from 'react'
 import { fetchAllUser } from '../../redux/slices/communitySilce'
 import CircularProgress from '@mui/material/CircularProgress'
+import { io } from 'socket.io-client'
+import { useRef } from 'react'
+import Rada from '../../components/Rada/Rada'
 
 const cxAppLayout = classNames.bind(stylesAppLayout)
 const cx = classNames.bind(styles)
 
 const Tinlog = () => {
-    const { user } = useSelector((state) => state.userInfo)
+    const { user, selectGender, ageRange } = useSelector(
+        (state) => state.userInfo
+    )
     const { community, loading } = useSelector((state) => state.community)
+    const socket = useRef()
     const navigate = useNavigate()
     const dispatch = useDispatch()
+
+    console.log('tinlog re-render')
 
     const handleLogout = () => {
         dispatch(actions.logOut({ navigate }))
     }
 
     useEffect(() => {
-        dispatch(fetchAllUser())
+        socket.current = io('ws://localhost:8900')
+        socket.current.on('hello', (data) => {
+            console.log(data)
+        })
+        dispatch(
+            fetchAllUser({
+                filterById: user._id,
+                filterByGender: selectGender,
+                filterByAgeRange: ageRange,
+                user,
+            })
+        )
     }, [])
+
+    useEffect(() => {
+        socket.current.emit('addUser', user._id)
+        socket.current.on('getUser', (users) => {
+            console.log('socket users', users)
+        })
+    }, [user])
 
     return (
         <AppLayout>
@@ -63,7 +90,7 @@ const Tinlog = () => {
                     </Link>
                 </div>
                 <div className={cx('content-sb')}>
-                    <ContentSideBar />
+                    <ContentSideBar user={user} />
                     <div className={cx('logout')} onClick={handleLogout}>
                         <p>Đăng Xuất</p>
                     </div>
@@ -80,8 +107,12 @@ const Tinlog = () => {
                         />
                     </div>
                 )}
-                {community?.length > 0 && !loading && (
+                {community?.length > 0 && !loading ? (
                     <CardUser user={user} community={community} />
+                ) : (
+                    <div className={cx('rada')}>
+                        <Rada user={user} />
+                    </div>
                 )}
             </div>
         </AppLayout>

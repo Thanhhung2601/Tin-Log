@@ -11,6 +11,9 @@
         position: relative;
         display: flex;
         column-gap: 18px;
+        .list-match-inner {
+            width: 100%;
+        }
         & span {
             font-weight: 600;
             cursor: pointer;

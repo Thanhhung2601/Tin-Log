@@ -4,13 +4,19 @@ import classNames from 'classnames/bind'
 import Rada from '../Rada/Rada'
 
 import CardItem from './CardItem/CardItem'
+import { useDispatch } from 'react-redux'
+import { updateProfileUser } from '../../redux/slices/userSlice'
+import { actions } from '../../redux/slices/communitySilce'
+import { addConversationAction } from '../../redux/slices/conversationSlice'
 
 const cx = classNames.bind(styles)
 
 const CardUser = ({ user, community }) => {
     const [currentIndex, setCurrentIndex] = useState(community.length - 1)
-    const [lastDirection, setLastDirection] = useState()
-
+    const [favoritePerson, setFavoritePerson] = useState(null)
+    const [lastDirection, setLastDirection] = useState(null)
+    const [indexCard, setIndexCard] = useState(null)
+    const dispatch = useDispatch()
     const currentIndexRef = useRef(currentIndex)
 
     const childRefs = useMemo(
@@ -20,6 +26,37 @@ const CardUser = ({ user, community }) => {
                 .map((i) => React.createRef()),
         []
     )
+
+    useEffect(() => {
+        if (lastDirection === 'left') {
+            console.log('Unlike', community[indexCard])
+        }
+        if (lastDirection === 'right') {
+            console.log('Like', community[indexCard])
+            const newFollowing = [...user.following]
+            const newLikes = [...community[indexCard].likes]
+            newFollowing.push(community[indexCard]._id)
+            newLikes.push(user._id)
+            const newCurrentProfile = {
+                ...user,
+                following: newFollowing,
+            }
+            const newOtherProfile = {
+                ...community[indexCard],
+                likes: newLikes,
+            }
+            dispatch(
+                actions.updateUser({ id: community[indexCard]._id, newLikes })
+            )
+            dispatch(updateProfileUser([newCurrentProfile, newOtherProfile]))
+            dispatch(
+                addConversationAction({
+                    senderId: user._id,
+                    receiverId: community[indexCard]._id,
+                })
+            )
+        }
+    }, [indexCard])
 
     const updateCurrentIndex = (val) => {
         setCurrentIndex(val)
@@ -36,10 +73,7 @@ const CardUser = ({ user, community }) => {
     }
 
     const outOfFrame = (name, idx) => {
-        console.log(
-            `${name} (${idx}) left the screen!`,
-            currentIndexRef.current
-        )
+        setIndexCard(idx)
         currentIndexRef.current >= idx && childRefs[idx].current.restoreCard()
     }
 
@@ -47,13 +81,6 @@ const CardUser = ({ user, community }) => {
         if (canSwipe && currentIndex < community.length) {
             await childRefs[currentIndex].current.swipe(dir) // Swipe the card!
         }
-    }
-
-    const goBack = async () => {
-        if (!canGoBack) return
-        const newIndex = currentIndex + 1
-        updateCurrentIndex(newIndex)
-        await childRefs[newIndex].current.restoreCard()
     }
 
     return (
@@ -64,7 +91,6 @@ const CardUser = ({ user, community }) => {
                         <Rada user={user} />
                     ) : (
                         community.map((character, index) => {
-                            console.log(index)
                             return (
                                 <CardItem
                                     character={character}
@@ -73,6 +99,7 @@ const CardUser = ({ user, community }) => {
                                     outOfFrame={outOfFrame}
                                     childRefs={childRefs}
                                     key={index}
+                                    user={user}
                                 />
                             )
                         })

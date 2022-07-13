@@ -9,6 +9,8 @@ import {
     FormControlLabel,
 } from '@mui/material'
 import { styled } from '@mui/material/styles'
+import { useDispatch } from 'react-redux'
+import { actions } from '../../../redux/slices/userSlice'
 
 const CustomFormControllLabel = styled(FormControlLabel)(({ theme }) => ({
     '& .MuiTypography-body1': {
@@ -22,11 +24,13 @@ const CustomRadioGrop = styled(RadioGroup)(({ theme }) => ({
 
 const cx = classNames.bind(styles)
 
-const SelectGender = () => {
-    const [selectedValue, setSelectedValue] = useState('All')
+const SelectGender = ({ selectGender }) => {
+    console.log(selectGender)
+    const dispatch = useDispatch()
     const handleChange = (event) => {
-        setSelectedValue(event.target.value)
+        dispatch(actions.selectGender(event.target.value))
     }
+
     return (
         <div className={cx('selectGender')}>
             <FormControl>
@@ -35,7 +39,7 @@ const SelectGender = () => {
                 <CustomRadioGrop
                     aria-labelledby="demo-controlled-radio-buttons-group"
                     name="controlled-radio-buttons-group"
-                    value={selectedValue}
+                    value={selectGender}
                     onChange={handleChange}
                 >
                     <CustomFormControllLabel
@@ -70,7 +74,7 @@ const SelectGender = () => {
                         label="Nữ"
                     />
                     <CustomFormControllLabel
-                        value="All"
+                        value="other"
                         control={
                             <Radio
                                 sx={{
@@ -80,7 +84,7 @@ const SelectGender = () => {
                                 }}
                             />
                         }
-                        label="Mọi người"
+                        label="Khác"
                     />
                 </CustomRadioGrop>
             </FormControl>

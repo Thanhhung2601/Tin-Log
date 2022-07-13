@@ -5,12 +5,29 @@ import { AiOutlineClose, AiTwotoneEdit } from 'react-icons/ai'
 import { Chip, Avatar } from '@mui/material'
 import HightLightImg from './HighLightImg/HightLightImg'
 import EditHobby from './EditHobby/EditHobby'
+import {
+    FormControl,
+    Radio,
+    RadioGroup,
+    FormLabel,
+    FormControlLabel,
+} from '@mui/material'
+import { styled } from '@mui/material/styles'
 import { Button } from '@mui/material'
 import { useRef } from 'react'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateProfileUser } from '../../../redux/slices/userSlice'
 import Loading from '../../Loading/Loading'
+
+const CustomFormControllLabel = styled(FormControlLabel)(({ theme }) => ({
+    '& .MuiTypography-body1': {
+        fontSize: '1.6rem',
+    },
+}))
+const CustomRadioGrop = styled(RadioGroup)(({ theme }) => ({
+    flexDirection: 'row',
+}))
 
 const cx = classNames.bind(styles)
 
@@ -21,7 +38,10 @@ const PopupEditProfile = ({ user, setPopupEditProfile }) => {
     const { loading } = useSelector((state) => state.userInfo)
     const dispatch = useDispatch()
 
+    console.log(userInfo)
+
     const handleChangeInput = (event) => {
+        console.log(event.target.id)
         switch (event.target.id) {
             case 'age': {
                 setUserInfo({ ...userInfo, age: event.target.value })
@@ -35,9 +55,8 @@ const PopupEditProfile = ({ user, setPopupEditProfile }) => {
                 setUserInfo({ ...userInfo, bio: event.target.value })
                 break
             }
-            case 'sex': {
+            default: {
                 setUserInfo({ ...userInfo, sex: event.target.value })
-                break
             }
         }
     }
@@ -71,7 +90,9 @@ const PopupEditProfile = ({ user, setPopupEditProfile }) => {
     const handleSave = () => {
         const filterdImg = userInfo.highlightImage.filter((img) => img)
         console.log({ ...userInfo, highlightImage: filterdImg })
-        dispatch(updateProfileUser({ ...userInfo, highlightImage: filterdImg }))
+        dispatch(
+            updateProfileUser([{ ...userInfo, highlightImage: filterdImg }])
+        )
     }
 
     return (
@@ -130,14 +151,63 @@ const PopupEditProfile = ({ user, setPopupEditProfile }) => {
                             <div className={cx('text')}>
                                 <span>Giới tính</span>
                             </div>
-                            <div className={cx('input')}>
-                                <input
-                                    type="text"
-                                    id="sex"
+                            <FormControl>
+                                <CustomRadioGrop
+                                    aria-labelledby="demo-controlled-radio-buttons-group"
+                                    name="controlled-radio-buttons-group"
                                     onChange={handleChangeInput}
                                     value={userInfo.sex}
-                                />
-                            </div>
+                                    id="sex"
+                                >
+                                    <CustomFormControllLabel
+                                        value="male"
+                                        control={
+                                            <Radio
+                                                color="default"
+                                                sx={{
+                                                    '& .MuiSvgIcon-root': {
+                                                        fontSize: 24,
+                                                    },
+                                                }}
+                                            />
+                                        }
+                                        label="Nam"
+                                        id="sex"
+                                    />
+                                    <CustomFormControllLabel
+                                        value="female"
+                                        control={
+                                            <Radio
+                                                sx={{
+                                                    '& .MuiSvgIcon-root': {
+                                                        fontSize: 24,
+                                                    },
+                                                    color: '#fd267a',
+                                                    '&.Mui-checked': {
+                                                        color: '#fd267a',
+                                                    },
+                                                }}
+                                            />
+                                        }
+                                        label="Nữ"
+                                        id="sex"
+                                    />
+                                    <CustomFormControllLabel
+                                        value="other"
+                                        control={
+                                            <Radio
+                                                sx={{
+                                                    '& .MuiSvgIcon-root': {
+                                                        fontSize: 24,
+                                                    },
+                                                }}
+                                            />
+                                        }
+                                        label="Khác"
+                                        id="sex"
+                                    />
+                                </CustomRadioGrop>
+                            </FormControl>
                         </div>
                         <div className={cx('fl-ip', 'mg-pd', 'edit-userName')}>
                             <div className={cx('text')}>

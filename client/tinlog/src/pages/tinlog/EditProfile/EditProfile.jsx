@@ -11,7 +11,6 @@ import SelectRangeSlider from '../../../components/EditProfile/SelectRangeSlider
 import ProfileCard from '../../../components/EditProfile/ProfileCard/ProfileCard'
 import { useState } from 'react'
 import PopupEditProfile from '../../../components/EditProfile/PopupEditProfile/PopupEditProfile'
-import Zoom from 'react-reveal/Zoom'
 
 const cxAppLayout = classNames.bind(stylesAppLayout)
 const cx = classNames.bind(styles)
@@ -19,7 +18,11 @@ const cx = classNames.bind(styles)
 const EditProfile = () => {
     const [popupEditProfile, setPopupEditProfile] = useState(false)
 
-    const { user } = useSelector((state) => state.userInfo)
+    const { user, ageRange, selectGender } = useSelector(
+        (state) => state.userInfo
+    )
+
+    console.log(ageRange)
 
     return (
         <AppLayout>
@@ -60,8 +63,8 @@ const EditProfile = () => {
                         </div>
                     </div>
                 </div>
-                <SelectGender />
-                <SelectRangeSlider />
+                <SelectGender selectGender={selectGender} />
+                <SelectRangeSlider ageRange={ageRange} />
             </div>
             <div className={cxAppLayout('app-content')}>
                 <ProfileCard user={user} />
