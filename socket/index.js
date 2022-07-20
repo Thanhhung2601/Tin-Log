@@ -8,18 +8,37 @@ const io = new Server(8900, {
 
 let users = []
 
-io.on('connection', (socket) => {
-    socket.emit('hello', 'word')
+const addUser = (userId, socketId) => {
+    !users.some((user) => user.userId === userId) &&
+        users.push({ userId, socketId })
+}
 
+const removeUser = (skId) => {
+    users = users.filter((user) => user.socketId !== skId)
+}
+
+const getUser = (userId) => {
+    return users.find((user) => user.userId === userId)
+}
+
+io.on('connection', (socket) => {
     socket.on('addUser', (userId) => {
-        !users.some((user) => user.userId === userId) &&
-            users.push({ userId, socketId: socket.id })
+        console.log('user Idddd', userId)
+        addUser(userId, socket.id)
         io.emit('getUser', users)
     })
 
+    socket.on('sendMessage', ({ senderId, receiverId, text }) => {
+        const user = getUser(receiverId)
+        if (!user) return
+        io.to(user.socketId).emit('getMessage', {
+            senderId,
+            text,
+        })
+    })
+
     socket.on('disconnect', () => {
-        users = users.filter((user) => user.socketId !== socket.id)
-        console.log('filter', users)
+        removeUser(socket.id)
         io.emit('getUser', users)
     })
 })

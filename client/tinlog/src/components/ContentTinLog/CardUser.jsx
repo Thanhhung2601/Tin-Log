@@ -28,34 +28,42 @@ const CardUser = ({ user, community }) => {
     )
 
     useEffect(() => {
-        if (lastDirection === 'left') {
-            console.log('Unlike', community[indexCard])
-        }
-        if (lastDirection === 'right') {
-            console.log('Like', community[indexCard])
-            const newFollowing = [...user.following]
-            const newLikes = [...community[indexCard].likes]
-            newFollowing.push(community[indexCard]._id)
-            newLikes.push(user._id)
-            const newCurrentProfile = {
-                ...user,
-                following: newFollowing,
+        const asyncHandle = async () => {
+            if (lastDirection === 'left') {
+                console.log('Unlike', community[indexCard])
             }
-            const newOtherProfile = {
-                ...community[indexCard],
-                likes: newLikes,
+            if (lastDirection === 'right') {
+                console.log('Like', community[indexCard])
+                const newFollowing = [...user.following]
+                const newLikes = [...community[indexCard].likes]
+                newFollowing.push(community[indexCard]._id)
+                newLikes.push(user._id)
+                const newCurrentProfile = {
+                    ...user,
+                    following: newFollowing,
+                }
+                const newOtherProfile = {
+                    ...community[indexCard],
+                    likes: newLikes,
+                }
+                await dispatch(
+                    actions.updateUser({
+                        id: community[indexCard]._id,
+                        newLikes,
+                    })
+                )
+                await dispatch(
+                    updateProfileUser([newCurrentProfile, newOtherProfile])
+                )
+                await dispatch(
+                    addConversationAction({
+                        senderId: user._id,
+                        receiverId: community[indexCard]._id,
+                    })
+                )
             }
-            dispatch(
-                actions.updateUser({ id: community[indexCard]._id, newLikes })
-            )
-            dispatch(updateProfileUser([newCurrentProfile, newOtherProfile]))
-            dispatch(
-                addConversationAction({
-                    senderId: user._id,
-                    receiverId: community[indexCard]._id,
-                })
-            )
         }
+        asyncHandle()
     }, [indexCard])
 
     const updateCurrentIndex = (val) => {

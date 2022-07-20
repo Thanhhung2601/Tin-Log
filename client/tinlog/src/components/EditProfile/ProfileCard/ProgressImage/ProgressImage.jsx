@@ -14,6 +14,7 @@ const ProgressImage = ({ hightlightImages, currentImage }) => {
                         key={index}
                         className={cx('item', {
                             active: currentImage === index,
+                            hidden: hightlightImages.length === 1,
                         })}
                     ></div>
                 )

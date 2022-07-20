@@ -25,24 +25,18 @@ const Tinlog = () => {
         (state) => state.userInfo
     )
     const { community, loading } = useSelector((state) => state.community)
-    const socket = useRef()
+
     const navigate = useNavigate()
     const dispatch = useDispatch()
-
-    console.log('tinlog re-render')
 
     const handleLogout = () => {
         dispatch(actions.logOut({ navigate }))
     }
 
     useEffect(() => {
-        socket.current = io('ws://localhost:8900')
-        socket.current.on('hello', (data) => {
-            console.log(data)
-        })
         dispatch(
             fetchAllUser({
-                filterById: user._id,
+                filterById: user?._id,
                 filterByGender: selectGender,
                 filterByAgeRange: ageRange,
                 user,
@@ -50,23 +44,16 @@ const Tinlog = () => {
         )
     }, [])
 
-    useEffect(() => {
-        socket.current.emit('addUser', user._id)
-        socket.current.on('getUser', (users) => {
-            console.log('socket users', users)
-        })
-    }, [user])
-
     return (
         <AppLayout>
             <div className={cxAppLayout('app-sidebar')}>
                 <div className={cx('sidebar-head')}>
                     <Link to="profile">
                         <div className={cx('sidebar-head-profile')}>
-                            {user.profileImage ? (
+                            {user?.profileImage ? (
                                 <Avatar
-                                    alt={user.userName}
-                                    src={user.profileImage}
+                                    alt={user?.userName}
+                                    src={user?.profileImage}
                                     sx={{
                                         width: 36,
                                         height: 36,
@@ -80,11 +67,11 @@ const Tinlog = () => {
                                         height: 36,
                                     }}
                                 >
-                                    {user.userName[0]}
+                                    {user?.userName[0]}
                                 </Avatar>
                             )}
                             <span className={cx('userName')}>
-                                {user.userName}
+                                {user?.userName}
                             </span>
                         </div>
                     </Link>

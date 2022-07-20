@@ -21,3 +21,14 @@ export const getAllConversation = async (req, res) => {
         res.status(500).json(error)
     }
 }
+
+export const getConversationById = async (req, res) => {
+    console.log(req.params.id)
+    try {
+        const conversation = await Conversation.findById(req.params.id)
+        console.log(conversation)
+        res.status(200).json(conversation)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}

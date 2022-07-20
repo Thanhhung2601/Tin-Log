@@ -61,10 +61,6 @@ const userSlice = createSlice({
         builder.addCase(updateProfileUser.fulfilled, (state, action) => {
             state.user = action.payload.data[0]
             state.loading = false
-            toast.success('Cập nhập thành công .', {
-                autoClose: 2500,
-                hideProgressBar: true,
-            })
         })
         builder.addCase(updateProfileUser.rejected, (state, action) => {
             toast.error(`${action.error.message}`)

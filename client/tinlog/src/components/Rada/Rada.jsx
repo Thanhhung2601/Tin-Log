@@ -11,8 +11,8 @@ const Rada = ({ user }) => {
             <div className={cx('pulse-box')}>
                 <div className={cx('pulse-css')}>
                     <Avatar
-                        alt={user.userName}
-                        src={user.profileImage}
+                        alt={user?.userName}
+                        src={user?.profileImage}
                         sx={{
                             width: '50px',
                             height: '50px',

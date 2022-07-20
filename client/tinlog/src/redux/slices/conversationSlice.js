@@ -1,5 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { addConversation, getAllConversation } from '../../api'
+import {
+    addConversation,
+    getAllConversation,
+    getConversationById,
+} from '../../api'
 
 const initialState = {
     conversation: [],

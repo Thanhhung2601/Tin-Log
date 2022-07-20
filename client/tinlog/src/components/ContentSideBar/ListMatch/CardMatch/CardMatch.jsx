@@ -3,11 +3,13 @@ import styles from './CardMatch.module.scss'
 import classNames from 'classnames/bind'
 import { getUserById } from '../../../../api/index'
 import noHighlightImg from '../../../../images/fleava.jpg'
+import { useNavigate } from 'react-router-dom'
 
 const cx = classNames.bind(styles)
 
-const CardMatch = ({ userId }) => {
+const CardMatch = ({ conversation, userId }) => {
     const [user, setUser] = useState('')
+    const navigate = useNavigate()
 
     useEffect(() => {
         const getUser = async () => {
@@ -17,8 +19,12 @@ const CardMatch = ({ userId }) => {
         getUser()
     }, [])
 
+    const handleClick = () => {
+        navigate(`/app/conversation/${conversation._id}`)
+    }
+
     return (
-        <div className={cx('card')}>
+        <div className={cx('card')} onClick={handleClick}>
             <img
                 src={user.profileImage || noHighlightImg}
                 alt={user.userName}

@@ -8,26 +8,30 @@ import img from '../../../images/No-highLightImg.png'
 
 const cx = classNames.bind(styles)
 
-const ProfileCard = ({ user }) => {
+const ProfileCard = ({ user, uiConversation }) => {
     const [currentImage, setCurrentImage] = useState(0)
 
     return (
         <div className={cx('profile-card-wrapper')}>
-            <div className={cx('profile-card-inner')}>
+            <div
+                className={cx('profile-card-inner', {
+                    uiConversation: uiConversation,
+                })}
+            >
                 <div className={cx('profile-inner-img')}>
-                    {user.highlightImage.length > 0 ? (
+                    {user?.highlightImage.length > 0 ? (
                         <>
                             <img
-                                src={user.highlightImage[currentImage]}
-                                alt={user.userName}
+                                src={user?.highlightImage[currentImage]}
+                                alt={user?.userName}
                             />
                             <NavImage
-                                highlightImage={user.highlightImage}
+                                highlightImage={user?.highlightImage}
                                 currentImage={currentImage}
                                 setCurrentImage={setCurrentImage}
                             />
                             <ProgressImage
-                                hightlightImages={user.highlightImage}
+                                hightlightImages={user?.highlightImage}
                                 currentImage={currentImage}
                                 setCurrentImage={setCurrentImage}
                             />
@@ -36,19 +40,23 @@ const ProfileCard = ({ user }) => {
                         <img src={img} alt="no-hightLightImage" />
                     )}
                 </div>
-                <div className={cx('profile-inner-desc')}>
+                <div
+                    className={cx('profile-inner-desc', {
+                        descConversation: uiConversation,
+                    })}
+                >
                     <div className={cx('profile-name-age')}>
                         <h2>
-                            {user.userName} <span>{user.age}</span>
+                            {user?.userName} <span>{user?.age}</span>
                         </h2>
                     </div>
                     <div className={cx('profile-bio')}>
-                        <p>{user.bio}</p>
+                        <p>{user?.bio}</p>
                     </div>
                     <div className={cx('profile-hobby')}>
                         <h4>Sở thích</h4>
                         <div className={cx('list-hobby')}>
-                            {user.hobby.map((hb) => {
+                            {user?.hobby.map((hb) => {
                                 return (
                                     <Chip
                                         key={hb.id}

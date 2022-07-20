@@ -6,6 +6,7 @@ import Tinlog from './pages/tinlog/Tinlog'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import EditProfile from './pages/tinlog/EditProfile/EditProfile'
+import Message from './pages/Message/Message'
 
 function App() {
     return (
@@ -16,6 +17,7 @@ function App() {
                     <Route path="/login-register" element={<Connect />} />
                     <Route path="/app" element={<Tinlog />} />
                     <Route path="/app/profile" element={<EditProfile />} />
+                    <Route path="/app/conversation/:id" element={<Message />} />
                 </Routes>
             </BrowserRouter>
             <ToastContainer

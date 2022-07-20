@@ -19,11 +19,10 @@ const ListMatch = ({ user }) => {
     return (
         <div className={cx('listMatch')}>
             {conversation.map((card) => {
-                console.log('MAP RUN')
                 const userId = card.members.find((it) => it !== user._id)
                 return (
                     <div className={cx('listMatch-item')} key={card._id}>
-                        <CardMatch userId={userId} />
+                        <CardMatch conversation={card} userId={userId} />
                     </div>
                 )
             })}

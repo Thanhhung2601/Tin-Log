@@ -15,6 +15,7 @@
             display: none;
         }
         .profile-inner-img {
+            display: flex;
             position: relative;
             & > img {
                 width: 100%;
@@ -24,8 +25,23 @@
                 object-fit: cover;
             }
         }
+        &.uiConversation {
+            height: 100%;
+            width: 100%;
+            min-width: 375px;
+            border-radius: 0px;
+            .profile-inner-img {
+                & > img {
+                    height: 600px;
+                    min-height: 468px;
+                    border-top-left-radius: 0;
+                    border-top-right-radius: 0;
+                }
+            }
+        }
     }
     .profile-inner-desc {
+        border: 1px solid #d4d8de;
         .profile-name-age,
         .profile-bio,
         .profile-hobby {
@@ -50,6 +66,9 @@
             .list-hobby {
                 margin: 0 -6px;
             }
+        }
+        &.descConversation {
+            margin-bottom: 68px;
         }
     }
 }
