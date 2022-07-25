@@ -8,17 +8,25 @@
 }
 
 .login-register {
+    display: flex;
+    position: relative;
     height: 100vh;
     width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    & video {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
     .login-register-insite {
-        background-color: #ffffff;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%);
+        top: 20%;
+        background-color: #66666683;
         width: 500px;
         padding: 50px 80px;
         box-shadow: 0 0 6px rgb(0 0 0 / 10%);
-        border-radius: 6px;
+        border-radius: 12px;
         .title {
             display: flex;
             justify-content: center;

@@ -8,6 +8,7 @@ import { actions, fetchUser, registerUser } from '../../redux/slices/userSlice'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { LinearProgress } from '@mui/material'
+import loginVideo from '../../video/login.mp4'
 
 const cx = classNames.bind(styles)
 
@@ -44,10 +45,8 @@ const Connect = () => {
         }
     }, [])
     return (
-        <div
-            className={cx('login-register')}
-            style={{ backgroundImage: "url('./B-tin.png')" }}
-        >
+        <div className={cx('login-register')}>
+            <video src={loginVideo} autoPlay loop></video>
             <div className={cx('login-register-insite')}>
                 <div className={cx('title')}>
                     <div
