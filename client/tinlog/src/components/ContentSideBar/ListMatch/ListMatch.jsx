@@ -7,9 +7,7 @@ import { getAllConversationAction } from '../../../redux/slices/conversationSlic
 
 const cx = classNames.bind(styles)
 
-const ListMatch = ({ user }) => {
-    const { conversation } = useSelector((state) => state.conversation)
-
+const ListMatch = ({ user, conversation }) => {
     const dispatch = useDispatch()
 
     useEffect(() => {

@@ -46,7 +46,7 @@ const Connect = () => {
     }, [])
     return (
         <div className={cx('login-register')}>
-            <video src={loginVideo} autoPlay loop></video>
+            <video src={loginVideo} autoPlay loop muted></video>
             <div className={cx('login-register-insite')}>
                 <div className={cx('title')}>
                     <div

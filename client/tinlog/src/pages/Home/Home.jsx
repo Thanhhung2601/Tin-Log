@@ -22,14 +22,14 @@ import SwiperCore, {
     Pagination,
     FreeMode,
 } from 'swiper'
-import AOS from 'aos'
-import 'aos/dist/aos.css'
 import hungAva from '../../images/hung.jpg'
 import datAva from '../../images/dat.jpg'
 import kietAva from '../../images/kiet.jpg'
 import kiet2Ava from '../../images/kiet2.jpg'
 import tigerAva from '../../images/tiger.jpg'
 import khoaAva from '../../images/khoa.png'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 AOS.init()
 SwiperCore.use([Navigation])
 const cx = classNames.bind(styles)
@@ -121,7 +121,7 @@ const Home = () => {
                 >
                     <SwiperSlide>
                         <div className={cx('item')}>
-                            <video src={video1} autoPlay loop></video>
+                            <video src={video1} autoPlay loop muted></video>
                             <div className={cx('item-desc')}>
                                 <div className={cx('desc-inner')}>
                                     <div className={cx('left')}>
@@ -140,7 +140,7 @@ const Home = () => {
                     </SwiperSlide>
                     <SwiperSlide>
                         <div className={cx('item')}>
-                            <video src={video2} autoPlay loop></video>
+                            <video src={video2} autoPlay loop muted></video>
                             <div className={cx('item-desc')}>
                                 <div className={cx('desc-inner')}>
                                     <div className={cx('left')}>
@@ -165,7 +165,7 @@ const Home = () => {
 
                     <SwiperSlide>
                         <div className={cx('item')}>
-                            <video src={video4} autoPlay loop></video>
+                            <video src={video4} autoPlay loop muted />
                             <div className={cx('item-desc')}>
                                 <div className={cx('desc-inner')}>
                                     <div className={cx('left')}>
@@ -186,7 +186,7 @@ const Home = () => {
 
                     <SwiperSlide>
                         <div className={cx('item')}>
-                            <video src={video3} autoPlay loop></video>
+                            <video src={video3} autoPlay loop muted></video>
                             <div className={cx('item-desc')}>
                                 <div className={cx('desc-inner')}>
                                     <div className={cx('left')}>
@@ -211,7 +211,7 @@ const Home = () => {
                 <div className={cx('community-inner', 'container')}>
                     <div
                         data-aos="fade-in"
-                        data-aos-once="true"
+                        data-aos-once="false"
                         data-aos-delay="100"
                         data-aos-duration="2000"
                     >
@@ -240,7 +240,7 @@ const Home = () => {
                     >
                         <div
                             data-aos="fade-left"
-                            data-aos-once="true"
+                            data-aos-once="false"
                             data-aos-delay="50"
                             data-aos-duration="1500"
                             className={cx('content')}
@@ -395,7 +395,7 @@ const Home = () => {
             </div>
             <div className={cx('footer')}>
                 <div className={cx('video')}>
-                    <video src={video5} autoPlay loop></video>
+                    <video src={video5} autoPlay loop muted></video>
                 </div>
                 <div className={cx('text')}>
                     <div data-aos="zoom-in" className="aos-init aos-animate">

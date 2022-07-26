@@ -13,14 +13,17 @@ import './Custom.scss'
 import ListMatch from './ListMatch/ListMatch'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllConversationAction } from '../../redux/slices/conversationSlice'
+import ListMessage from './ListMessage/ListMessage'
 
 const cx = classNames.bind(styles)
 const ContentSideBar = ({ user }) => {
     const [value, setValue] = useState(0)
-
+    const { conversation } = useSelector((state) => state.conversation)
     const handleChange = (event, newValue) => {
         setValue(newValue)
     }
+
+    console.log(conversation)
 
     return (
         <div className={cx('list-match')}>
@@ -37,10 +40,10 @@ const ContentSideBar = ({ user }) => {
                         </Tabs>
                     </Box>
                     <TabPanel value={value} index={0}>
-                        <ListMatch user={user} />
+                        <ListMatch user={user} conversation={conversation} />
                     </TabPanel>
                     <TabPanel value={value} index={1}>
-                        Tin Nhắn
+                        <ListMessage user={user} conversation={conversation} />
                     </TabPanel>
                 </div>
             </div>

@@ -9,7 +9,7 @@ const cx = classNames.bind(styles)
 const HightLightImg = ({ user, setUserInfo }) => {
     const [hightLightImg, setHightLightImg] = useState(user.highlightImage)
     const [countImg, setCountImg] = useState(null)
-
+    let delayTime = 200
     const inputRef = useRef()
 
     useEffect(() => {
@@ -68,8 +68,14 @@ const HightLightImg = ({ user, setUserInfo }) => {
             </div>
             <div className={cx('edit-hightLightImg')}>
                 {hightLightImg.map((img, index) => {
+                    delayTime += 100
                     return (
-                        <div key={index} className={cx('img-item')}>
+                        <div
+                            data-aos="zoom-in"
+                            key={index}
+                            data-aos-delay={delayTime}
+                            className={cx('img-item')}
+                        >
                             {img ? (
                                 <>
                                     <img src={img} alt="" />

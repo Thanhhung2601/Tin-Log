@@ -46,37 +46,39 @@ const EditHobby = ({ user, setUserInfo, setPopupHobby }) => {
 
     return (
         <div className={cx('EditHobby')}>
-            <div className={cx('title')}>
-                <div className={cx('text')}>
-                    <h2>Sửa sở thích</h2>
+            <div data-aos="zoom-in">
+                <div className={cx('title')}>
+                    <div className={cx('text')}>
+                        <h2>Sửa sở thích</h2>
+                    </div>
+                    <div className={cx('done')} onClick={handleConfirm}>
+                        <span>Xong</span>
+                    </div>
                 </div>
-                <div className={cx('done')} onClick={handleConfirm}>
-                    <span>Xong</span>
-                </div>
-            </div>
-            <div className={cx('hobby')}>
-                {listHobby.map((item) => {
-                    return (
-                        <Chip
-                            key={item.id}
-                            label={item.text}
-                            onClick={() => handleUpdateHobby(item.id)}
-                            variant="outlined"
-                            sx={{
-                                fontSize: '1.2rem',
-                                margin: '4px 6px',
-                                cursor: 'pointer',
+                <div className={cx('hobby')}>
+                    {listHobby.map((item) => {
+                        return (
+                            <Chip
+                                key={item.id}
+                                label={item.text}
+                                onClick={() => handleUpdateHobby(item.id)}
+                                variant="outlined"
+                                sx={{
+                                    fontSize: '1.2rem',
+                                    margin: '4px 6px',
+                                    cursor: 'pointer',
 
-                                border: item.isChoice
-                                    ? '1px solid #FD267A'
-                                    : '1px solid #bdbdbd',
-                                color: item.isChoice
-                                    ? '#FD267A'
-                                    : 'rgba(0, 0, 0, 0.87)',
-                            }}
-                        />
-                    )
-                })}
+                                    border: item.isChoice
+                                        ? '1px solid #FD267A'
+                                        : '1px solid #bdbdbd',
+                                    color: item.isChoice
+                                        ? '#FD267A'
+                                        : 'rgba(0, 0, 0, 0.87)',
+                                }}
+                            />
+                        )
+                    })}
+                </div>
             </div>
         </div>
     )

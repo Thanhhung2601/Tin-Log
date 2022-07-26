@@ -1,0 +1,27 @@
+.no-message {
+    margin-top: 80px;
+    display: block;
+    &.showNoMessage {
+        display: none;
+    }
+    .icon {
+        position: relative;
+        text-align: center;
+        .custom-icon {
+            position: absolute;
+            right: 77px;
+            top: 71px;
+        }
+    }
+    .title,
+    .text {
+        text-align: center;
+    }
+    .title {
+        & > h2 {
+            font-weight: 600;
+            font-size: 2.8rem;
+            margin-top: 16px;
+        }
+    }
+}
