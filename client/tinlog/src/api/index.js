@@ -18,3 +18,5 @@ export const getUserById = (id) => API.post('/user/getById', id)
 export const getConversationById = (id) => API.get(`/conversation/${id}`)
 export const sendmessage = (data) => API.post('/message', data)
 export const getAllMessage = (id) => API.get(`/message/${id}`)
+export const deleteConversation = (dataId) =>
+    API.post('/conversation/delete', dataId)

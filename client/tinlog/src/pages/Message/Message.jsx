@@ -4,8 +4,9 @@ import classNames from 'classnames/bind'
 import { useNavigate, useParams } from 'react-router-dom'
 import { AiOutlineCloseCircle } from 'react-icons/ai'
 import ProfileCard from '../../components/EditProfile/ProfileCard/ProfileCard'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {
+    deleteConversation,
     getAllMessage,
     getConversationById,
     getUserById,
@@ -15,6 +16,7 @@ import { io } from 'socket.io-client'
 import noAvatar from '../../images/fleava.jpg'
 import moment from 'moment'
 import Messenger from '../../components/Messenger/Messenger'
+import { updateProfileUser } from '../../redux/slices/userSlice'
 
 const cx = classNames.bind(styles)
 
@@ -25,10 +27,14 @@ const Message = () => {
     const [newMessage, setNewMessage] = useState('')
     const [arraivalMessage, setArraivalMessage] = useState(null)
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     const { user } = useSelector((state) => state.userInfo)
+    const { conversation: cv } = useSelector((state) => state.conversation)
     const { id } = useParams()
     const scrollRef = useRef()
     const socket = useRef()
+
+    console.log('conversation', conversation)
 
     useEffect(() => {
         socket.current = io('ws://localhost:8900')
@@ -74,6 +80,32 @@ const Message = () => {
             behavior: 'smooth',
         })
     }, [messages])
+
+    const handleCancelMatch = async () => {
+        const idDelete = []
+        const newProfileUSer = {
+            ...user,
+            following: user.following.filter((it) => it !== userMatch._id),
+            likes: user.likes.filter((it) => it !== userMatch._id),
+        }
+        const newProfileMatch = {
+            ...userMatch,
+            following: userMatch.following.filter((it) => it !== user._id),
+            likes: userMatch.likes.filter((it) => it !== user._id),
+        }
+        cv.forEach((conv) => {
+            const stringId = conv.members.join('')
+            if (
+                stringId.includes(conversation.members[0]) &&
+                stringId.includes(conversation.members[1])
+            ) {
+                idDelete.push(conv._id)
+            }
+        })
+        await dispatch(updateProfileUser([newProfileUSer, newProfileMatch]))
+        await deleteConversation(idDelete)
+        navigate('/app')
+    }
 
     const handleSendMessage = async () => {
         if (!newMessage) return
@@ -352,7 +384,7 @@ const Message = () => {
             </div>
             <div className={cx('message-cardUserInfo')}>
                 <ProfileCard user={userMatch} uiConversation={true} />
-                <div className={cx('cancel-match')}>
+                <div className={cx('cancel-match')} onClick={handleCancelMatch}>
                     <p>hủy tương hợp</p>
                 </div>
             </div>

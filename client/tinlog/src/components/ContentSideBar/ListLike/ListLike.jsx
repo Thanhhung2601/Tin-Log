@@ -5,10 +5,12 @@ import { getUserById } from '../../../api'
 import { useDispatch } from 'react-redux'
 import { getUserByIdAction } from '../../../redux/slices/userSlice'
 import CardMatch from '../ListMatch/CardMatch/CardMatch'
+import ViewDetailProfile from '../../ViewDetailProfile/ViewDetailProfile'
 
 const cx = classNames.bind(styles)
 
 const ListLike = ({ user }) => {
+    const [profileDetail, setprofileDetail] = useState(null)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -60,10 +62,19 @@ const ListLike = ({ user }) => {
             {user.likes.map((item, index) => {
                 return (
                     <div className={cx('listLike-item')} key={index}>
-                        <CardMatch userId={item} />
+                        <CardMatch
+                            userId={item}
+                            ViewDetailProfile={setprofileDetail}
+                        />
                     </div>
                 )
             })}
+            {profileDetail && (
+                <ViewDetailProfile
+                    user={profileDetail}
+                    setprofileDetail={setprofileDetail}
+                />
+            )}
         </div>
     )
 }

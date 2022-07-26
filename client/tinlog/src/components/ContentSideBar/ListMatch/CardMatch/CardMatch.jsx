@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 
 const cx = classNames.bind(styles)
 
-const CardMatch = ({ conversation, userId }) => {
+const CardMatch = ({ conversation, userId, ViewDetailProfile }) => {
     const [user, setUser] = useState('')
     const navigate = useNavigate()
 
@@ -20,6 +20,10 @@ const CardMatch = ({ conversation, userId }) => {
     }, [])
 
     const handleClick = () => {
+        if (ViewDetailProfile) {
+            ViewDetailProfile(user)
+            return
+        }
         navigate(`/app/conversation/${conversation._id}`)
     }
 

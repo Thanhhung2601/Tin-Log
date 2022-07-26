@@ -13,20 +13,27 @@ import './Custom.scss'
 import ListMatch from './ListMatch/ListMatch'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllConversationAction } from '../../redux/slices/conversationSlice'
+import { actions } from '../../redux/slices/conversationSlice'
 import ListMessage from './ListMessage/ListMessage'
 import ListLike from './ListLike/ListLike'
 
 const cx = classNames.bind(styles)
 const ContentSideBar = ({ user }) => {
     const [value, setValue] = useState(0)
-    const { conversation } = useSelector((state) => state.conversation)
+    const { conversationFilterdMatch } = useSelector(
+        (state) => state.conversation
+    )
     const dispatch = useDispatch()
     const handleChange = (event, newValue) => {
         setValue(newValue)
     }
 
     useEffect(() => {
-        dispatch(getAllConversationAction(user))
+        const handleAsync = async () => {
+            await dispatch(getAllConversationAction(user))
+            await dispatch(actions.filterMatchConversation(user))
+        }
+        handleAsync()
     }, [])
 
     return (
@@ -45,10 +52,16 @@ const ContentSideBar = ({ user }) => {
                         </Tabs>
                     </Box>
                     <TabPanel value={value} index={0}>
-                        <ListMatch user={user} conversation={conversation} />
+                        <ListMatch
+                            user={user}
+                            conversation={conversationFilterdMatch}
+                        />
                     </TabPanel>
                     <TabPanel value={value} index={1}>
-                        <ListMessage user={user} conversation={conversation} />
+                        <ListMessage
+                            user={user}
+                            conversation={conversationFilterdMatch}
+                        />
                     </TabPanel>
                     <TabPanel value={value} index={2}>
                         <ListLike user={user} />

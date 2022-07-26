@@ -6,35 +6,46 @@ import {
 } from '../../api'
 
 const initialState = {
+    conversationFilterdMatch: [],
     conversation: [],
 }
 
 const conversationSlice = createSlice({
     name: 'conversationSlice',
     initialState,
-    reducers: {},
-    extraReducers: (builder) => {
-        builder.addCase(getAllConversationAction.fulfilled, (state, action) => {
-            const { data, user } = action.payload
-            console.log(action.payload)
+    reducers: {
+        filterMatchConversation(state, action) {
             const match = []
-            for (let index = 0; index < data.length; index++) {
-                for (let index2 = index + 1; index2 < data.length; index2++) {
+            for (let index = 0; index < state.conversation.length; index++) {
+                for (
+                    let index2 = index + 1;
+                    index2 < state.conversation.length;
+                    index2++
+                ) {
                     if (
-                        data[index].members[0] === data[index2].members[1] &&
-                        data[index].members[1] === data[index2].members[0]
+                        state.conversation[index].members[0] ===
+                            state.conversation[index2].members[1] &&
+                        state.conversation[index].members[1] ===
+                            state.conversation[index2].members[0]
                     ) {
-                        match.push(data[index])
+                        match.push(state.conversation[index])
                     }
                 }
             }
             const filterdMatch = match.filter((item) => {
-                let check = item.members.some((member) => member === user._id)
+                let check = item.members.some(
+                    (member) => member === action.payload._id
+                )
                 if (check) {
                     return item
                 }
             })
-            state.conversation = filterdMatch
+            state.conversationFilterdMatch = filterdMatch
+        },
+    },
+    extraReducers: (builder) => {
+        builder.addCase(getAllConversationAction.fulfilled, (state, action) => {
+            state.conversation = action.payload
         })
     },
 })
@@ -53,7 +64,7 @@ export const getAllConversationAction = createAsyncThunk(
     async (user) => {
         try {
             const { data } = await getAllConversation()
-            return { data, user }
+            return data
         } catch (error) {
             console.log(error)
         }

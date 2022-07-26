@@ -32,3 +32,9 @@ export const getConversationById = async (req, res) => {
         res.status(500).json(error)
     }
 }
+
+export const deleteConversation = async (req, res) => {
+    await Conversation.findByIdAndRemove(req.body[0])
+    await Conversation.findByIdAndRemove(req.body[1])
+    res.json({ message: 'post delete success' })
+}
