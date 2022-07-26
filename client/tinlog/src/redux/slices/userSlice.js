@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { getUser, register, updateProfile } from '../../api'
+import { getUser, getUserById, register, updateProfile } from '../../api'
 import { toast } from 'react-toastify'
 
 const initialState = {
@@ -54,6 +54,9 @@ const userSlice = createSlice({
                 autoClose: 3000,
                 position: 'bottom-right',
             })
+        })
+        builder.addCase(getUserByIdAction.fulfilled, (state, action) => {
+            state.user = action.payload
         })
         builder.addCase(updateProfileUser.pending, (state, action) => {
             state.loading = true
@@ -110,6 +113,23 @@ export const updateProfileUser = createAsyncThunk(
         try {
             const res = await updateProfile(userInfo)
             return res
+        } catch (error) {
+            console.log(error)
+            const customError = {
+                name: 'Custom axios error',
+                message: error.response.data.message,
+            }
+            throw customError
+        }
+    }
+)
+
+export const getUserByIdAction = createAsyncThunk(
+    'userSlice/getUserByIdAction',
+    async (id) => {
+        try {
+            const { data } = await getUserById({ userId: id })
+            return data
         } catch (error) {
             console.log(error)
             const customError = {

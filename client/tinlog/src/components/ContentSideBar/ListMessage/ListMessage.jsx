@@ -9,6 +9,8 @@ const cx = classNames.bind(styles)
 const ListMessage = ({ user, conversation }) => {
     const [showNoMessage, setshowNoMessage] = useState(0)
 
+    console.log('listmessage render')
+
     return (
         <div className={cx('listMessage')}>
             <div

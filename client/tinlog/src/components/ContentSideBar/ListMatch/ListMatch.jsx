@@ -2,18 +2,10 @@ import React, { useEffect } from 'react'
 import styles from './ListMatch.module.scss'
 import classNames from 'classnames/bind'
 import CardMatch from './CardMatch/CardMatch'
-import { useSelector, useDispatch } from 'react-redux'
-import { getAllConversationAction } from '../../../redux/slices/conversationSlice'
 
 const cx = classNames.bind(styles)
 
 const ListMatch = ({ user, conversation }) => {
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-        dispatch(getAllConversationAction(user))
-    }, [])
-
     return (
         <div className={cx('listMatch')}>
             {conversation.map((card) => {

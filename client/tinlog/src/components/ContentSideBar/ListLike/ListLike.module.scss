@@ -1,0 +1,68 @@
+.listLike {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    padding-top: 30px;
+    margin: -8px -6px;
+    .like-number {
+        height: 132px;
+        box-sizing: border-box;
+        flex-basis: 33.3333%;
+        padding: 6px;
+        .border {
+            height: 100%;
+            border: 4px solid #f0c650;
+            border-radius: 5px;
+            .like-number-inner {
+                position: relative;
+                padding: 2px;
+                border: 3px solid white;
+                border-radius: 5px;
+                height: 100%;
+                width: 100%;
+                background: #bdc3c7; /* fallback for old browsers */
+                background: -webkit-linear-gradient(
+                    to right,
+                    #2c3e50,
+                    #bdc3c7
+                ); /* Chrome 10-25, Safari 5.1-6 */
+                background: linear-gradient(
+                    to right,
+                    #2c3e50,
+                    #bdc3c7
+                ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+                .text {
+                    position: absolute;
+                    bottom: 6px;
+                    left: 4px;
+                    color: white;
+                    font-weight: 500;
+                }
+                .number-center {
+                    position: absolute;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 36px;
+                    height: 36px;
+                    border-radius: 50%;
+                    background-color: #f0c650;
+                    color: white;
+                    font-weight: 600;
+                }
+                .icon {
+                    position: absolute;
+                    bottom: -28px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                }
+            }
+        }
+    }
+    .listLike-item {
+        flex-basis: 33.3333%;
+    }
+}

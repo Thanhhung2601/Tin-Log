@@ -14,16 +14,20 @@ import ListMatch from './ListMatch/ListMatch'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllConversationAction } from '../../redux/slices/conversationSlice'
 import ListMessage from './ListMessage/ListMessage'
+import ListLike from './ListLike/ListLike'
 
 const cx = classNames.bind(styles)
 const ContentSideBar = ({ user }) => {
     const [value, setValue] = useState(0)
     const { conversation } = useSelector((state) => state.conversation)
+    const dispatch = useDispatch()
     const handleChange = (event, newValue) => {
         setValue(newValue)
     }
 
-    console.log(conversation)
+    useEffect(() => {
+        dispatch(getAllConversationAction(user))
+    }, [])
 
     return (
         <div className={cx('list-match')}>
@@ -37,6 +41,7 @@ const ContentSideBar = ({ user }) => {
                         >
                             <Tab label="Tương Hợp" {...a11yProps(0)} />
                             <Tab label="Tin Nhắn" {...a11yProps(1)} />
+                            <Tab label="Thích bạn" {...a11yProps(2)} />
                         </Tabs>
                     </Box>
                     <TabPanel value={value} index={0}>
@@ -44,6 +49,9 @@ const ContentSideBar = ({ user }) => {
                     </TabPanel>
                     <TabPanel value={value} index={1}>
                         <ListMessage user={user} conversation={conversation} />
+                    </TabPanel>
+                    <TabPanel value={value} index={2}>
+                        <ListLike user={user} />
                     </TabPanel>
                 </div>
             </div>
